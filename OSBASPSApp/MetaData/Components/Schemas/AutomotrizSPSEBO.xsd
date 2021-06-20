@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.example.org"
+            targetNamespace="http://www.example.org" elementFormDefault="qualified">
+  <xsd:complexType name="AutomotrizSPSEBOType">
+    <xsd:sequence>
+      <xsd:element name="Usuario" type="xsd:string"/>
+      <xsd:element name="DescripcionAutoparte" type="xsd:string"/>
+      <xsd:element name="Descuento" type="xsd:long"/>
+      <xsd:element name="Fecha" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="AutomotrizSPSEBO" type="AutomotrizSPSEBOType"/>
+</xsd:schema>

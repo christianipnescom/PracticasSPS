@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.example.org"
+            targetNamespace="http://www.example.org" elementFormDefault="qualified">
+  <xsd:complexType name="HeaderType">
+    <xsd:sequence>
+      <xsd:element name="TrackingID" type="xsd:string"/>
+      <xsd:element name="InstanceID" type="xsd:string"/>
+      <xsd:element name="Operation" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="Header" type="HeaderType"/>
+  <xsd:complexType name="ResponseType">
+    <xsd:sequence>
+      <xsd:element name="Code" type="xsd:string"/>
+      <xsd:element name="Message" type="xsd:string"/>
+      <xsd:element name="Detail" type="xsd:string"/>
+      <xsd:element name="TrackingID" type="xsd:string"/>
+      <xsd:element name="InstanceID" type="xsd:string"/>
+      <xsd:element name="Operation" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="Response" type="ResponseType"/>
+</xsd:schema>

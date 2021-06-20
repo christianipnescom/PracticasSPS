@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:pipelineEntry xmlns:con="http://www.bea.com/wli/sb/pipeline/config" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:con1="http://www.bea.com/wli/sb/stages/logging/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con4="http://www.bea.com/wli/sb/stages/routing/config">
+    <con:coreEntry>
+        <con:binding type="SOAP" isSoap12="false" xsi:type="con:SoapBindingType">
+            <con:wsdl ref="AutomotrizSPSApp/SyncAutomotrizSPSElasticAdapterService/Resources/WSDL/SyncAutomotrizSPSElasticAdapterService"/>
+            <con:binding>
+                <con:name>syncAutomotrizSPS_bind</con:name>
+                <con:namespace>http://xmlns.oracle.com/OSBASPSApp/AutomotrizSPSApp/SyncAutomotrizSPSElasticAdapterService</con:namespace>
+            </con:binding>
+        </con:binding>
+        <con:xqConfiguration>
+            <con:snippetVersion>1.0</con:snippetVersion>
+        </con:xqConfiguration>
+    </con:coreEntry>
+    <con:router errorHandler="error-N3f57c7ff.4fba81bc.0.17a2a95f00b.N7fc4">
+        <con:pipeline type="request" name="request-N3f57c7ff.N38b57ec4.0.17a2752c67d.N7ffb">
+            <con:stage id="_StageId-N3f57c7ff.N38b57ec4.0.17a2752c67d.N7ff9" name="StageRequest">
+                <con:context>
+                    <con2:userNsDecl prefix="exam" namespace="http://www.example.org"/>
+                </con:context>
+                <con:actions>
+                    <con1:report>
+                        <con2:id>_ActionId-N3f57c7ff.N38b57ec4.0.17a2752c67d.N7ff5</con2:id>
+                        <con1:expr>
+                            <con2:xqueryText>$body</con2:xqueryText>
+                        </con1:expr>
+                        <con1:labels>
+                            <con1:key>In.Tracking</con1:key>
+                            <con1:varName>body</con1:varName>
+                            <con1:value>
+                                <con2:xpathText>./exam:SyncAutomotrizSPSEBM/exam:Header/exam:TrackingID</con2:xpathText>
+                            </con1:value>
+                        </con1:labels>
+                    </con1:report>
+                    <con3:assign varName="TrackingID">
+                        <con2:id>_ActionId-N3f57c7ff.4fba81bc.0.17a2a95f00b.N7fcb</con2:id>
+                        <con3:expr>
+                            <con2:xqueryText>$body/exam:SyncAutomotrizSPSEBM/exam:Header/exam:TrackingID</con2:xqueryText>
+                        </con3:expr>
+                    </con3:assign>
+                    <con3:assign varName="InstanceID">
+                        <con2:id>_ActionId-N3f57c7ff.4fba81bc.0.17a2a95f00b.N7fc8</con2:id>
+                        <con3:expr>
+                            <con2:xqueryText>$body/exam:SyncAutomotrizSPSEBM/exam:Header/exam:InstanceID</con2:xqueryText>
+                        </con3:expr>
+                    </con3:assign>
+                    <con3:assign varName="Operation">
+                        <con2:id>_ActionId-N3f57c7ff.4fba81bc.0.17a2a95f00b.N7fc5</con2:id>
+                        <con3:expr>
+                            <con2:xqueryText>$body/exam:SyncAutomotrizSPSEBM/exam:Header/exam:Operation</con2:xqueryText>
+                        </con3:expr>
+                    </con3:assign>
+                </con:actions>
+            </con:stage>
+        </con:pipeline>
+        <con:pipeline type="response" name="response-N3f57c7ff.N38b57ec4.0.17a2752c67d.N7ffa">
+            <con:stage id="_StageId-N3f57c7ff.N38b57ec4.0.17a2752c67d.N7ff8" name="StageResponse">
+                <con:context/>
+                <con:actions>
+                    <con1:report>
+                        <con2:id>_ActionId-N3f57c7ff.4fba81bc.0.17a2a95f00b.N7fb6</con2:id>
+                        <con1:expr>
+                            <con2:xqueryText>$body</con2:xqueryText>
+                        </con1:expr>
+                        <con1:labels>
+                            <con1:key>Out.Tracking</con1:key>
+                            <con1:varName>body</con1:varName>
+                            <con1:value>
+                                <con2:xpathText>$TrackingID</con2:xpathText>
+                            </con1:value>
+                        </con1:labels>
+                    </con1:report>
+                </con:actions>
+            </con:stage>
+        </con:pipeline>
+        <con:pipeline type="error" name="error-N3f57c7ff.4fba81bc.0.17a2a95f00b.N7fc4">
+            <con:stage id="_StageId-N3f57c7ff.4fba81bc.0.17a2a95f00b.N7fc3" name="ErrorHandlerResponse">
+                <con:context/>
+                <con:actions>
+                    <con3:ifThenElse>
+                        <con2:id>_ActionId-N3f57c7ff.4fba81bc.0.17a2a95f00b.N7fba</con2:id>
+                        <con3:case id="_BranchId-N3f57c7ff.4fba81bc.0.17a2a95f00b.N7fb9">
+                            <con3:condition>
+                                <con2:xqueryText>$fault/ctx:errorCode="OSB-382505"</con2:xqueryText>
+                            </con3:condition>
+                            <con3:actions>
+                                <con3:replace varName="body" contents-only="true">
+                                    <con2:id>_ActionId-N3f57c7ff.4fba81bc.0.17a2a95f00b.N7f76</con2:id>
+                                    <con3:location>
+                                        <con2:xpathText>.</con2:xpathText>
+                                    </con3:location>
+                                    <con3:expr>
+                                        <con2:xsltTransform>
+                                            <con2:resource ref="AutomotrizSPSApp/SyncAutomotrizSPSElasticAdapterService/Resources/Transformations/XformResponseError"/>
+                                            <con2:input>$body/*</con2:input>
+                                            <con2:param name="Code">
+                                                <con2:path>dvm:lookup("MetaData/Dvm/ERROR_CODE.dvm","CODE","GEN-0101","ERROR_CODE","No value found")</con2:path>
+                                            </con2:param>
+                                            <con2:param name="Message">
+                                                <con2:path>dvm:lookup("MetaData/Dvm/ERROR_CODE.dvm","CODE","GEN-0101","USER_MESSAGE","No value found")</con2:path>
+                                            </con2:param>
+                                            <con2:param name="Detail">
+                                                <con2:path>$fault/ctx:details</con2:path>
+                                            </con2:param>
+                                            <con2:param name="InstanceID">
+                                                <con2:path>$InstanceID</con2:path>
+                                            </con2:param>
+                                            <con2:param name="TrackingID">
+                                                <con2:path>$TrackingID</con2:path>
+                                            </con2:param>
+                                        </con2:xsltTransform>
+                                    </con3:expr>
+                                </con3:replace>
+                            </con3:actions>
+                        </con3:case>
+                        <con3:case id="_BranchId-N3f57c7ff.4fba81bc.0.17a2a95f00b.N7f79">
+                            <con3:condition>
+                                <con2:xqueryText>fn:not(fn:empty($body/soap-env:Fault))</con2:xqueryText>
+                            </con3:condition>
+                            <con3:actions>
+                                <con3:replace varName="body" contents-only="true">
+                                    <con2:id>_ActionId-N3f57c7ff.4fba81bc.0.17a2a95f00b.N7f73</con2:id>
+                                    <con3:location>
+                                        <con2:xpathText>.</con2:xpathText>
+                                    </con3:location>
+                                    <con3:expr>
+                                        <con2:xsltTransform>
+                                            <con2:resource ref="AutomotrizSPSApp/SyncAutomotrizSPSElasticAdapterService/Resources/Transformations/XformResponseError"/>
+                                            <con2:input>$body/*</con2:input>
+                                            <con2:param name="Code">
+                                                <con2:path>$body/soap-env:Fault/faultcode</con2:path>
+                                            </con2:param>
+                                            <con2:param name="Message">
+                                                <con2:path>dvm:lookup("MetaData/Dvm/ERROR_CODE.dvm","CODE","GEN-0102","USER_MESSAGE","Not Found")</con2:path>
+                                            </con2:param>
+                                            <con2:param name="Detail">
+                                                <con2:path>$body/soap-env:Fault/faultstring</con2:path>
+                                            </con2:param>
+                                            <con2:param name="InstanceID">
+                                                <con2:path>$InstanceID</con2:path>
+                                            </con2:param>
+                                            <con2:param name="TrackingID">
+                                                <con2:path>$TrackingID</con2:path>
+                                            </con2:param>
+                                        </con2:xsltTransform>
+                                    </con3:expr>
+                                </con3:replace>
+                            </con3:actions>
+                        </con3:case>
+                        <con3:default>
+                            <con3:replace varName="body" contents-only="true">
+                                <con2:id>_ActionId-N3f57c7ff.4fba81bc.0.17a2a95f00b.N7f70</con2:id>
+                                <con3:location>
+                                    <con2:xpathText>.</con2:xpathText>
+                                </con3:location>
+                                <con3:expr>
+                                    <con2:xsltTransform>
+                                        <con2:resource ref="AutomotrizSPSApp/SyncAutomotrizSPSElasticAdapterService/Resources/Transformations/XformResponseError"/>
+                                        <con2:input>$body/*</con2:input>
+                                        <con2:param name="Code">
+                                            <con2:path>$fault/ctx:errorCode</con2:path>
+                                        </con2:param>
+                                        <con2:param name="Message">
+                                            <con2:path>dvm:lookup("MetaData/Dvm/ERROR_CODE.dvm","CODE","GEN-0102","USER_MESSAGE","Not Found")</con2:path>
+                                        </con2:param>
+                                        <con2:param name="Detail">
+                                            <con2:path>$fault/ctx:reason</con2:path>
+                                        </con2:param>
+                                        <con2:param name="InstanceID">
+                                            <con2:path>$InstanceID</con2:path>
+                                        </con2:param>
+                                        <con2:param name="TrackingID">
+                                            <con2:path>$TrackingID</con2:path>
+                                        </con2:param>
+                                    </con2:xsltTransform>
+                                </con3:expr>
+                            </con3:replace>
+                        </con3:default>
+                    </con3:ifThenElse>
+                    <con1:report>
+                        <con2:id>_ActionId-N3f57c7ff.4fba81bc.0.17a2a95f00b.N7fa7</con2:id>
+                        <con1:expr>
+                            <con2:xqueryText>$body</con2:xqueryText>
+                        </con1:expr>
+                        <con1:labels>
+                            <con1:key>Error.Tracking</con1:key>
+                            <con1:varName>body</con1:varName>
+                            <con1:value>
+                                <con2:xpathText>$TrackingID</con2:xpathText>
+                            </con1:value>
+                        </con1:labels>
+                    </con1:report>
+                </con:actions>
+            </con:stage>
+        </con:pipeline>
+        <con:flow>
+            <con:pipeline-node name="PipelinePairNode1">
+                <con:request>request-N3f57c7ff.N38b57ec4.0.17a2752c67d.N7ffb</con:request>
+                <con:response>response-N3f57c7ff.N38b57ec4.0.17a2752c67d.N7ffa</con:response>
+            </con:pipeline-node>
+            <con:route-node name="RouteNodeAutonotrizSPS">
+                <con:context>
+                    <con2:userNsDecl prefix="exam" namespace="http://www.example.org"/>
+                </con:context>
+                <con:actions>
+                    <con4:routingTable>
+                        <con2:id>_ActionId-N3f57c7ff.4fba81bc.0.17a2a95f00b.N7fd1</con2:id>
+                        <con4:expression>
+                            <con2:xqueryText>$body/exam:SyncAutomotrizSPSEBM/exam:Header/exam:Operation</con2:xqueryText>
+                        </con4:expression>
+                        <con4:case id="_BranchId-N3f57c7ff.4fba81bc.0.17a2a95f00b.N7fd0">
+                            <con4:operator>equals</con4:operator>
+                            <con4:value>'CREATE'</con4:value>
+                            <con4:route>
+                                <con2:id>_ActionId-N3f57c7ff.4fba81bc.0.17a2a95f00b.N7fcf</con2:id>
+                                <con4:outboundTransform>
+                                    <con1:report>
+                                        <con2:id>_ActionId-N3f57c7ff.4fba81bc.0.17a2a95f00b.N7fa3</con2:id>
+                                        <con1:expr>
+                                            <con2:xqueryText>$body</con2:xqueryText>
+                                        </con1:expr>
+                                        <con1:labels>
+                                            <con1:key>Out.Tracking</con1:key>
+                                            <con1:varName>body</con1:varName>
+                                            <con1:value>
+                                                <con2:xpathText>$TrackingID</con2:xpathText>
+                                            </con1:value>
+                                        </con1:labels>
+                                    </con1:report>
+                                </con4:outboundTransform>
+                                <con4:responseTransform>
+                                    <con1:report>
+                                        <con2:id>_ActionId-N3f57c7ff.4fba81bc.0.17a2a95f00b.N7f9e</con2:id>
+                                        <con1:expr>
+                                            <con2:xqueryText>$body</con2:xqueryText>
+                                        </con1:expr>
+                                        <con1:labels>
+                                            <con1:key>Out.Tracking</con1:key>
+                                            <con1:varName>body</con1:varName>
+                                            <con1:value>
+                                                <con2:xpathText>$TrackingID</con2:xpathText>
+                                            </con1:value>
+                                        </con1:labels>
+                                    </con1:report>
+                                </con4:responseTransform>
+                            </con4:route>
+                        </con4:case>
+                        <con4:case id="_BranchId-N3f57c7ff.4fba81bc.0.17a2a95f00b.N7f96">
+                            <con4:operator>equals</con4:operator>
+                            <con4:value>'READ'</con4:value>
+                            <con4:route>
+                                <con2:id>_ActionId-N3f57c7ff.4fba81bc.0.17a2a95f00b.N7f95</con2:id>
+                                <con4:outboundTransform>
+                                    <con1:report>
+                                        <con2:id>_ActionId-N3f57c7ff.4fba81bc.0.17a2a95f00b.N7f8d</con2:id>
+                                        <con1:expr>
+                                            <con2:xqueryText>$body</con2:xqueryText>
+                                        </con1:expr>
+                                        <con1:labels>
+                                            <con1:key>Out.Tracking</con1:key>
+                                            <con1:varName>body</con1:varName>
+                                            <con1:value>
+                                                <con2:xpathText>$TrackingID</con2:xpathText>
+                                            </con1:value>
+                                        </con1:labels>
+                                    </con1:report>
+                                </con4:outboundTransform>
+                                <con4:responseTransform>
+                                    <con1:report>
+                                        <con2:id>_ActionId-N3f57c7ff.4fba81bc.0.17a2a95f00b.N7f82</con2:id>
+                                        <con1:expr>
+                                            <con2:xqueryText>$body</con2:xqueryText>
+                                        </con1:expr>
+                                        <con1:labels>
+                                            <con1:key>Out.Tracking</con1:key>
+                                            <con1:varName>body</con1:varName>
+                                            <con1:value>
+                                                <con2:xpathText>$TrackingID</con2:xpathText>
+                                            </con1:value>
+                                        </con1:labels>
+                                    </con1:report>
+                                </con4:responseTransform>
+                            </con4:route>
+                        </con4:case>
+                        <con4:case id="_BranchId-N3f57c7ff.4fba81bc.0.17a2a95f00b.N7f91">
+                            <con4:operator>equals</con4:operator>
+                            <con4:value>'UPDATE'</con4:value>
+                            <con4:route>
+                                <con2:id>_ActionId-N3f57c7ff.4fba81bc.0.17a2a95f00b.N7f90</con2:id>
+                                <con4:outboundTransform>
+                                    <con1:report>
+                                        <con2:id>_ActionId-N3f57c7ff.4fba81bc.0.17a2a95f00b.N7f8a</con2:id>
+                                        <con1:expr>
+                                            <con2:xqueryText>$body</con2:xqueryText>
+                                        </con1:expr>
+                                        <con1:labels>
+                                            <con1:key>Out.Tracking</con1:key>
+                                            <con1:varName>body</con1:varName>
+                                            <con1:value>
+                                                <con2:xpathText>$TrackingID</con2:xpathText>
+                                            </con1:value>
+                                        </con1:labels>
+                                    </con1:report>
+                                </con4:outboundTransform>
+                                <con4:responseTransform>
+                                    <con1:report>
+                                        <con2:id>_ActionId-N3f57c7ff.4fba81bc.0.17a2a95f00b.N7f80</con2:id>
+                                        <con1:expr>
+                                            <con2:xqueryText>$body</con2:xqueryText>
+                                        </con1:expr>
+                                        <con1:labels>
+                                            <con1:key>Out.Tracking</con1:key>
+                                            <con1:varName>body</con1:varName>
+                                            <con1:value>
+                                                <con2:xpathText>$TrackingID</con2:xpathText>
+                                            </con1:value>
+                                        </con1:labels>
+                                    </con1:report>
+                                </con4:responseTransform>
+                            </con4:route>
+                        </con4:case>
+                        <con4:defaultCase>
+                            <con4:route>
+                                <con2:id>_ActionId-N3f57c7ff.4fba81bc.0.17a2a95f00b.N7fce</con2:id>
+                                <con4:outboundTransform>
+                                    <con1:report>
+                                        <con2:id>_ActionId-N3f57c7ff.4fba81bc.0.17a2a95f00b.N7f87</con2:id>
+                                        <con1:expr>
+                                            <con2:xqueryText>$body</con2:xqueryText>
+                                        </con1:expr>
+                                        <con1:labels>
+                                            <con1:key>Out.Tracking</con1:key>
+                                            <con1:varName>body</con1:varName>
+                                            <con1:value>
+                                                <con2:xpathText>$TrackingID</con2:xpathText>
+                                            </con1:value>
+                                        </con1:labels>
+                                    </con1:report>
+                                </con4:outboundTransform>
+                                <con4:responseTransform>
+                                    <con1:report>
+                                        <con2:id>_ActionId-N3f57c7ff.4fba81bc.0.17a2a95f00b.N7f7c</con2:id>
+                                        <con1:expr>
+                                            <con2:xqueryText>$body</con2:xqueryText>
+                                        </con1:expr>
+                                        <con1:labels>
+                                            <con1:key>Out.Tracking</con1:key>
+                                            <con1:varName>body</con1:varName>
+                                            <con1:value>
+                                                <con2:xpathText>$TrackingID</con2:xpathText>
+                                            </con1:value>
+                                        </con1:labels>
+                                    </con1:report>
+                                </con4:responseTransform>
+                            </con4:route>
+                        </con4:defaultCase>
+                    </con4:routingTable>
+                </con:actions>
+            </con:route-node>
+        </con:flow>
+        <con:shared-variables>
+            <con:variable>TrackingID</con:variable>
+            <con:variable>InstanceID</con:variable>
+            <con:variable>Operation</con:variable>
+        </con:shared-variables>
+    </con:router>
+</con:pipelineEntry>
