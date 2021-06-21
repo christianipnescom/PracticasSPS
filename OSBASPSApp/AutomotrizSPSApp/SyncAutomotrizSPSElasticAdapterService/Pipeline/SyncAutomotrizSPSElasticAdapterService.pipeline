@@ -214,6 +214,18 @@
                             <con4:route>
                                 <con2:id>_ActionId-N3f57c7ff.4fba81bc.0.17a2a95f00b.N7fcf</con2:id>
                                 <con4:outboundTransform>
+                                    <con3:replace varName="body" contents-only="true">
+                                        <con2:id>_ActionId-N3f57c7ff.2c45335a.0.17a2c3b9730.N7ffe</con2:id>
+                                        <con3:location>
+                                            <con2:xpathText>.</con2:xpathText>
+                                        </con3:location>
+                                        <con3:expr>
+                                            <con2:xsltTransform>
+                                                <con2:resource ref="AutomotrizSPSApp/SyncAutomotrizSPSElasticAdapterService/Resources/Transformations/XformSyncAutomotrizToCreateElastic"/>
+                                                <con2:input>$body/*</con2:input>
+                                            </con2:xsltTransform>
+                                        </con3:expr>
+                                    </con3:replace>
                                     <con1:report>
                                         <con2:id>_ActionId-N3f57c7ff.4fba81bc.0.17a2a95f00b.N7fa3</con2:id>
                                         <con1:expr>
@@ -242,6 +254,33 @@
                                             </con1:value>
                                         </con1:labels>
                                     </con1:report>
+                                    <con3:replace varName="body" contents-only="true">
+                                        <con2:id>_ActionId-N3f57c7ff.2c45335a.0.17a2c3b9730.N7ffb</con2:id>
+                                        <con3:location>
+                                            <con2:xpathText>.</con2:xpathText>
+                                        </con3:location>
+                                        <con3:expr>
+                                            <con2:xsltTransform>
+                                                <con2:resource ref="AutomotrizSPSApp/SyncAutomotrizSPSElasticAdapterService/Resources/Transformations/XformCreateResponseToSyncAutomotrizResponse"/>
+                                                <con2:input>$body/*</con2:input>
+                                                <con2:param name="Code">
+                                                    <con2:path>dvm:lookup("MetaData/Dvm/ERROR_CODE.dvm","CODE","GEN-0000","ERROR_CODE","No value found")</con2:path>
+                                                </con2:param>
+                                                <con2:param name="Message">
+                                                    <con2:path>dvm:lookup("MetaData/Dvm/ERROR_CODE.dvm","CODE","GEN-0000","ERROR_CODE","No value found")</con2:path>
+                                                </con2:param>
+                                                <con2:param name="TrackingID">
+                                                    <con2:path>$TrackingID</con2:path>
+                                                </con2:param>
+                                                <con2:param name="InstanceID">
+                                                    <con2:path>$InstanceID</con2:path>
+                                                </con2:param>
+                                                <con2:param name="Operation">
+                                                    <con2:path>$Operation</con2:path>
+                                                </con2:param>
+                                            </con2:xsltTransform>
+                                        </con3:expr>
+                                    </con3:replace>
                                 </con4:responseTransform>
                             </con4:route>
                         </con4:case>
@@ -251,6 +290,18 @@
                             <con4:route>
                                 <con2:id>_ActionId-N3f57c7ff.4fba81bc.0.17a2a95f00b.N7f95</con2:id>
                                 <con4:outboundTransform>
+                                    <con3:replace varName="body" contents-only="true">
+                                        <con2:id>_ActionId-N3f57c7ff.2c45335a.0.17a2c3b9730.N7ff8</con2:id>
+                                        <con3:location>
+                                            <con2:xpathText>.</con2:xpathText>
+                                        </con3:location>
+                                        <con3:expr>
+                                            <con2:xsltTransform>
+                                                <con2:resource ref="AutomotrizSPSApp/SyncAutomotrizSPSElasticAdapterService/Resources/Transformations/XformSyncAutomotrizToReadElastic"/>
+                                                <con2:input>$bodu/*</con2:input>
+                                            </con2:xsltTransform>
+                                        </con3:expr>
+                                    </con3:replace>
                                     <con1:report>
                                         <con2:id>_ActionId-N3f57c7ff.4fba81bc.0.17a2a95f00b.N7f8d</con2:id>
                                         <con1:expr>
@@ -279,6 +330,33 @@
                                             </con1:value>
                                         </con1:labels>
                                     </con1:report>
+                                    <con3:replace varName="body" contents-only="true">
+                                        <con2:id>_ActionId-N3f57c7ff.2c45335a.0.17a2c3b9730.N7ff5</con2:id>
+                                        <con3:location>
+                                            <con2:xpathText>.</con2:xpathText>
+                                        </con3:location>
+                                        <con3:expr>
+                                            <con2:xsltTransform>
+                                                <con2:resource ref="AutomotrizSPSApp/SyncAutomotrizSPSElasticAdapterService/Resources/Transformations/XformReadResponseToSyncAutomotrizResonse"/>
+                                                <con2:input>$body/*</con2:input>
+                                                <con2:param name="Code">
+                                                    <con2:path>dvm:lookup("MetaData/Dvm/ERROR_CODE.dvm","CODE","GEN-0000","ERROR_CODE","No value found")</con2:path>
+                                                </con2:param>
+                                                <con2:param name="Message">
+                                                    <con2:path>dvm:lookup("MetaData/Dvm/ERROR_CODE.dvm","CODE","GEN-0000","USER_MESSAGE","No value found")</con2:path>
+                                                </con2:param>
+                                                <con2:param name="TrackingID">
+                                                    <con2:path>$TrackingID</con2:path>
+                                                </con2:param>
+                                                <con2:param name="InstanceID">
+                                                    <con2:path>$InstanceID</con2:path>
+                                                </con2:param>
+                                                <con2:param name="Operation">
+                                                    <con2:path>$Operation</con2:path>
+                                                </con2:param>
+                                            </con2:xsltTransform>
+                                        </con3:expr>
+                                    </con3:replace>
                                 </con4:responseTransform>
                             </con4:route>
                         </con4:case>
@@ -288,6 +366,18 @@
                             <con4:route>
                                 <con2:id>_ActionId-N3f57c7ff.4fba81bc.0.17a2a95f00b.N7f90</con2:id>
                                 <con4:outboundTransform>
+                                    <con3:replace varName="body" contents-only="true">
+                                        <con2:id>_ActionId-N3f57c7ff.2c45335a.0.17a2c3b9730.N7ff2</con2:id>
+                                        <con3:location>
+                                            <con2:xpathText>.</con2:xpathText>
+                                        </con3:location>
+                                        <con3:expr>
+                                            <con2:xsltTransform>
+                                                <con2:resource ref="AutomotrizSPSApp/SyncAutomotrizSPSElasticAdapterService/Resources/Transformations/XformSyncAutomotrizToUpdateElastic"/>
+                                                <con2:input>$body/*</con2:input>
+                                            </con2:xsltTransform>
+                                        </con3:expr>
+                                    </con3:replace>
                                     <con1:report>
                                         <con2:id>_ActionId-N3f57c7ff.4fba81bc.0.17a2a95f00b.N7f8a</con2:id>
                                         <con1:expr>
@@ -316,6 +406,33 @@
                                             </con1:value>
                                         </con1:labels>
                                     </con1:report>
+                                    <con3:replace varName="body" contents-only="true">
+                                        <con2:id>_ActionId-N3f57c7ff.2c45335a.0.17a2c3b9730.N7fef</con2:id>
+                                        <con3:location>
+                                            <con2:xpathText>.</con2:xpathText>
+                                        </con3:location>
+                                        <con3:expr>
+                                            <con2:xsltTransform>
+                                                <con2:resource ref="AutomotrizSPSApp/SyncAutomotrizSPSElasticAdapterService/Resources/Transformations/XformUpdateResponseToSyncResponse"/>
+                                                <con2:input>$body/*</con2:input>
+                                                <con2:param name="Code">
+                                                    <con2:path>dvm:lookup("MetaData/Dvm/ERROR_CODE.dvm","CODE","GEN-0000","ERROR_CODE","No value found")</con2:path>
+                                                </con2:param>
+                                                <con2:param name="Message">
+                                                    <con2:path>dvm:lookup("MetaData/Dvm/ERROR_CODE.dvm","CODE","GEN-0000","User_Message","No value found")</con2:path>
+                                                </con2:param>
+                                                <con2:param name="TrackingID">
+                                                    <con2:path>$TrackingID</con2:path>
+                                                </con2:param>
+                                                <con2:param name="InstanceID">
+                                                    <con2:path>$InstanceID</con2:path>
+                                                </con2:param>
+                                                <con2:param name="Operation">
+                                                    <con2:path>$Operation</con2:path>
+                                                </con2:param>
+                                            </con2:xsltTransform>
+                                        </con3:expr>
+                                    </con3:replace>
                                 </con4:responseTransform>
                             </con4:route>
                         </con4:case>
@@ -323,6 +440,18 @@
                             <con4:route>
                                 <con2:id>_ActionId-N3f57c7ff.4fba81bc.0.17a2a95f00b.N7fce</con2:id>
                                 <con4:outboundTransform>
+                                    <con3:replace varName="body" contents-only="true">
+                                        <con2:id>_ActionId-N3f57c7ff.2c45335a.0.17a2c3b9730.N7fec</con2:id>
+                                        <con3:location>
+                                            <con2:xpathText>.</con2:xpathText>
+                                        </con3:location>
+                                        <con3:expr>
+                                            <con2:xsltTransform>
+                                                <con2:resource ref="AutomotrizSPSApp/SyncAutomotrizSPSElasticAdapterService/Resources/Transformations/XformSyncAutomotrizToDeleteElastic"/>
+                                                <con2:input>$body/*</con2:input>
+                                            </con2:xsltTransform>
+                                        </con3:expr>
+                                    </con3:replace>
                                     <con1:report>
                                         <con2:id>_ActionId-N3f57c7ff.4fba81bc.0.17a2a95f00b.N7f87</con2:id>
                                         <con1:expr>
@@ -351,6 +480,33 @@
                                             </con1:value>
                                         </con1:labels>
                                     </con1:report>
+                                    <con3:replace varName="body" contents-only="true">
+                                        <con2:id>_ActionId-N3f57c7ff.2c45335a.0.17a2c3b9730.N7fe9</con2:id>
+                                        <con3:location>
+                                            <con2:xpathText>.</con2:xpathText>
+                                        </con3:location>
+                                        <con3:expr>
+                                            <con2:xsltTransform>
+                                                <con2:resource ref="AutomotrizSPSApp/SyncAutomotrizSPSElasticAdapterService/Resources/Transformations/XformDeleteResponseToSyncRAutomotrizResponse"/>
+                                                <con2:input>$body/*</con2:input>
+                                                <con2:param name="Code">
+                                                    <con2:path>dvm:lookup("MetaData/Dvm/ERROR_CODE.dvm","CODE","GEN-0000","ERROR_CODE","No value found")</con2:path>
+                                                </con2:param>
+                                                <con2:param name="Message">
+                                                    <con2:path>dvm:lookup("MetaData/Dvm/ERROR_CODE.dvm","CODE","GEN-0000","USER_MESSAGE","No value found")</con2:path>
+                                                </con2:param>
+                                                <con2:param name="TrackingID">
+                                                    <con2:path>$TrackingID</con2:path>
+                                                </con2:param>
+                                                <con2:param name="InstanceID">
+                                                    <con2:path>$InstanceID</con2:path>
+                                                </con2:param>
+                                                <con2:param name="Operation">
+                                                    <con2:path>$Operation</con2:path>
+                                                </con2:param>
+                                            </con2:xsltTransform>
+                                        </con3:expr>
+                                    </con3:replace>
                                 </con4:responseTransform>
                             </con4:route>
                         </con4:defaultCase>

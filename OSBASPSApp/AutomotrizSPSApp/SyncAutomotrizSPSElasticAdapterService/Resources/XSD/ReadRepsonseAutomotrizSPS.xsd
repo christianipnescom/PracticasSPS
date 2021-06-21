@@ -34,7 +34,7 @@
                               <xsd:element name="_type" type="xsd:string"/>
                               <xsd:element name="_id" type="xsd:integer"/>
                               <xsd:element name="_score" type="xsd:double"/>
-                              <xsd:element name="_source">
+                              <xsd:element name="_source" minOccurs="0" maxOccurs="unbounded">
                                  <xsd:complexType>
                                     <xsd:sequence>
                                        <xsd:element name="usuario" type="xsd:string"/>
